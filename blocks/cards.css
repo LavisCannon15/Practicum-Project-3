@@ -1,5 +1,5 @@
 .cards {
-    margin-top: 30px;
+    margin-top: 51px;
 
 }
 
@@ -12,13 +12,14 @@
     padding: 0;
     margin: 0;
 
+    list-style: none;
+
 }
 
 .card {
     display:flex;
     flex-direction: column;
-    list-style: none;
-    border-radius: 10px;
+    
 }
 
 .card__image
@@ -29,6 +30,8 @@
 
 .card__description {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     
     background-color: white;
     color: black;
@@ -39,10 +42,13 @@
     padding-left: 20px;
     padding-right: 20px;
 
-    align-items: center;
-    justify-content: space-between;
 
+    border-radius: 0px 0px 10px 10px;
 
+    height: 29px;
+}
+
+.card__name {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 900;
@@ -51,9 +57,12 @@
 
 }
 
+
 .card__heart-button {
     background: transparent url(../images/card-heart-button.svg) center no-repeat;
     width: 21px;
     height: 18px;
+
+    border:none;
 
 }
