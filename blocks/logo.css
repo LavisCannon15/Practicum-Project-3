@@ -1,7 +1,22 @@
 .logo {
-    position: absolute;
-    width: 173px;
-    height: 33px;
-    left: 200px;
-    top: 45px;
+  padding-bottom: 41px;
+}
+
+@media screen and (max-width: 580px) {
+  .logo {
+    width: 126px;
+    height: 24px;
+
+    margin-top: 28px;
+    margin-bottom: 32px;
+    margin-left: 27px;
+
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .logo {
+    padding-left: 27px;
+  }
 }

@@ -1,68 +1,21 @@
 .cards {
-    margin-top: 51px;
-
+  margin-top: 51px;
 }
 
-.card__list {
-    display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fit, 282px);
-    grid-gap: 20px 17px;
+.cards__list {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, 282px);
+  grid-gap: 20px 17px;
 
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 
-    list-style: none;
-
+  list-style: none;
 }
 
-.card {
-    display:flex;
-    flex-direction: column;
-    
-}
-
-.card__image
-{
-    width: 282px;
-    height: 282px;
-}
-
-.card__description {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    
-    background-color: white;
-    color: black;
-    
-
-    padding-top: 25px;
-    padding-bottom: 25px;
-    padding-left: 20px;
-    padding-right: 20px;
-
-
-    border-radius: 0px 0px 10px 10px;
-
-    height: 29px;
-}
-
-.card__name {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 900;
-    font-size: 24px;
-    line-height: 29px;
-
-}
-
-
-.card__heart-button {
-    background: transparent url(../images/card-heart-button.svg) center no-repeat;
-    width: 21px;
-    height: 18px;
-
-    border:none;
-
+@media screen and (max-width: 580px) {
+  .cards {
+    margin-top: 36px;
+  }
 }
