@@ -37,6 +37,10 @@
   color: #ffffff;
 
   grid-area: title;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__edit-button {
@@ -68,6 +72,10 @@
   margin: 0;
 
   padding-top: 16px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__add-button {
@@ -86,6 +94,16 @@
 
 .profile__add-button:hover {
   opacity: 60%;
+}
+
+@media screen and (max-width: 880px) {
+  .profile__image {
+    margin-left: 27px;
+  }
+
+  .profile__add-button {
+    margin-right: 27px;
+  }
 }
 
 @media screen and (max-width: 580px) {
@@ -143,15 +161,5 @@
 
     margin-left: 10px;
     padding: 0;
-  }
-}
-
-@media screen and (min-width: 800px) {
-  .profile__image {
-    margin-left: 27px;
-  }
-
-  .profile__add-button {
-    margin-right: 27px;
   }
 }
