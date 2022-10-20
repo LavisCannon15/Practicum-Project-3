@@ -17,5 +17,7 @@ Website was designed on Figma:
 - [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)
 
 **GITHUB-LINK**
-
 https://github.com/LavisCannon15/Practicum-Project-3
+
+**GITHUB-LIVE WEBSITE**
+https://laviscannon15.github.io/Practicum-Project-3/
