@@ -1,19 +1,48 @@
 .modal {
-  position: relative;
+  position: fixed;
+  visibility: hidden;
+  
+
+  top: -51%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.modal__opened {
+  visibility: visible;
+
 }
 
 .modal__container {
+
   margin: 0;
+
 }
+
 
 .modal__exit-button {
-  position: absolute;
-  left: 550px;
+  background: transparent url(../images/exit-icon.svg) center no-repeat;
 
-  border: none;
+
+  margin-left: 430px;
+
+  width: 40px;
+  height: 40px;
+
+  cursor: pointer;
+  
+  border:none;
 }
 
-.modal__exit-button-image {
+.modal__exit-button:hover {
+  opacity: 0.6;
 }
 
 .modal__form {
@@ -23,12 +52,11 @@
 
   border-radius: 10px 10px 10px 10px;
 
-  margin: 0;
-
-  padding-left: 36px;
+  /*margin: 0;*/
 
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .modal__form-title {
@@ -56,7 +84,9 @@
   gap: 29px;
 
   padding: 0;
-  margin: 0;
+
+  margin-left: 36px;
+  margin-right: 36px;
 
   width: 358px;
 }
@@ -81,6 +111,8 @@
 }
 
 .modal__form-button {
+  border: none;
+
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -95,5 +127,8 @@
   background: #000000;
   border-radius: 2px;
 
+  padding: 0;
+
   margin-top: 48px;
+  margin-bottom: 36px;
 }

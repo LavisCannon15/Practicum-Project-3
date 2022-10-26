@@ -152,15 +152,13 @@
       </footer>
     </div>
 
-    <div class="modal">
+    <div class="modal modal__opened">
       <div class="modal__container">
-        <button type="button" class="modal__exit-button">
-          <img
-            src="./images/exit-icon.svg"
-            alt="exit button"
-            class="modal__exit-button-image"
-          />
-        </button>
+        <button
+          type="button"
+          class="modal__exit-button"
+          aria-label="exit button"
+        ></button>
 
         <form class="modal__form">
           <h3 class="modal__form-title">Edit profile</h3>
@@ -189,5 +187,6 @@
         </form>
       </div>
     </div>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>
