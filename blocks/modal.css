@@ -1,13 +1,11 @@
 .modal {
   position: fixed;
   visibility: hidden;
-  
 
   top: -51%;
   left: 0;
   right: 0;
   bottom: 0;
-
 
   display: flex;
   justify-content: center;
@@ -17,19 +15,14 @@
 
 .modal__opened {
   visibility: visible;
-
 }
 
 .modal__container {
-
   margin: 0;
-
 }
-
 
 .modal__exit-button {
   background: transparent url(../images/exit-icon.svg) center no-repeat;
-
 
   margin-left: 430px;
 
@@ -37,8 +30,8 @@
   height: 40px;
 
   cursor: pointer;
-  
-  border:none;
+
+  border: none;
 }
 
 .modal__exit-button:hover {
@@ -92,15 +85,14 @@
 }
 
 .modal__form-input {
+
   border: none;
+  border-bottom: 1px solid #000000;
+  opacity: 0.2;
 
   height: 27.26px;
 
-  opacity: 0.2;
-  border-bottom: 1px solid #000000;
-}
 
-.modal__form-input-name {
   color: #000000;
 
   font-family: "Inter", Arial, sans-serif;
@@ -108,6 +100,31 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
+}
+
+.modal__form-input-name {
+
+  /*
+  color: #000000;
+
+  font-family: "Inter", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  */
+}
+
+.modal__form-input-description {
+  /*
+  color: #000000;
+
+  font-family: "Inter", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  */
 }
 
 .modal__form-button {
@@ -131,4 +148,8 @@
 
   margin-top: 48px;
   margin-bottom: 36px;
+}
+
+.modal__form-button:hover {
+  opacity: 0.8;
 }
