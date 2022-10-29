@@ -43,7 +43,6 @@ const modalSaveButton = document.querySelector(".modal__form-button");
 
 
 const cardList = document.querySelector(".card__list");
-
 const cardTemplate = document.querySelector("#card-template").content.firstElementChild;
 
 
@@ -86,7 +85,44 @@ modalExitButton.addEventListener("click", closeModalWindow);
 modalSaveButton.addEventListener("click", saveProfileInput);
 
 
+function getCardElement(data)
+{
+  for (let i= 0; i < data.length; i++)
+  {
+      const cardElement = cardTemplate.cloneNode(true);
 
+      const cardTitle = cardElement.querySelector(".card__title");
+
+      const cardImage = cardElement.querySelector(".card__image");
+
+      cardImage.src = data[i].link;
+
+      cardImage.alt = data[i].title;
+
+      cardTitle.textContent = data[i].name;
+
+      cardList.appendChild(cardElement);
+
+  }
+}
+
+getCardElement(initialCards);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 initialCards.forEach(function(data) 
 {
   const cardElement = cardTemplate.cloneNode(true);
@@ -104,13 +140,4 @@ initialCards.forEach(function(data)
   cardList.appendChild(cardElement);
 
 });
-
-
-
-
-
-
-
-
-
-
+*/
