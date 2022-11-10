@@ -120,11 +120,11 @@
 .modal__form-button {
   border: none;
 
-  font-family: "Inter";
+  font-family: "Inter", Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 17px;
   text-align: center;
 
   color: #ffffff;
@@ -143,4 +143,67 @@
 
 .modal__form-button:hover {
   opacity: 0.8;
+}
+
+.modal__preview-image {
+  width: 433px;
+  height: 540px;
+
+  border-radius: 0px;
+}
+
+.modal__preview-title {
+  font-family: "Inter", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+
+  color: #ffffff;
+}
+
+@media screen and (max-width: 580px) {
+  .modal__form {
+    width: 282px;
+    height: 322px;
+  }
+
+  .modal__form-title {
+    width: 238px;
+    height: 22px;
+
+    padding-top: 25px;
+    padding-bottom: 76px;
+
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .modal__form-fieldset {
+    margin-left: 22px;
+    margin-right: 22px;
+
+    width: 238px;
+  }
+
+  .modal__exit-button {
+    margin-left: 245px;
+    margin-bottom: 13px;
+
+    width: 26px;
+    height: 26px;
+  }
+
+  .modal__form-button {
+    margin-top: 46px;
+    margin-bottom: 25px;
+
+    width: 238px;
+    height: 46px;
+  }
+
+  .modal__preview-image {
+    width: 240px;
+    height: 299px;
+  }
 }

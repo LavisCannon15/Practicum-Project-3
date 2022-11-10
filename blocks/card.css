@@ -6,6 +6,10 @@
 .card__image {
   width: 282px;
   height: 282px;
+
+  border-radius: 10px 10px 0px 0px;
+
+  cursor: pointer;
 }
 
 .card__description {
@@ -39,6 +43,26 @@
   overflow: hidden;
 }
 
+.card__delete-button {
+  background: transparent url(../images/card-delete-button.svg) center no-repeat;
+
+  width: 18px;
+  height: 19px;
+
+  border: none;
+
+  cursor: pointer;
+
+  position: relative;
+  bottom:339px;
+  left:249px;
+}
+
+.card__delete-button:hover {
+  opacity: 60%;
+
+}
+
 .card__heart-button {
   background: transparent url(../images/card-heart-button.svg) center no-repeat;
   width: 21px;
@@ -52,3 +76,15 @@
 .card__heart-button:hover {
   opacity: 50%;
 }
+
+.card__heart-button-active {
+  background: transparent url(../images/card-heart-button-active.svg) center no-repeat;
+
+  width: 21px;
+  height: 18px;
+
+  border: none;
+
+  cursor: pointer;
+}
+

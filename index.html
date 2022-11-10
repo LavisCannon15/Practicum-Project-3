@@ -47,9 +47,17 @@
         </section>
 
         <section class="cards page__section">
-          <ul class="cards__list">
-
-          </ul>
+          <ul class="cards__list"></ul>
+          <template id="card-template">
+            <li class="card">
+              <img class="card__image" src=" " alt="" />
+              <div class="card__description">
+                <h2 class="card__title"></h2>
+                <button class="card__heart-button" type="button"></button>
+              </div>
+              <button class="card__delete-button" type="button"></button>
+            </li>
+          </template>
         </section>
       </main>
 
@@ -58,15 +66,17 @@
       </footer>
     </div>
 
-    <div class="modal">
+    <!----------------------------- profile edit------------------------------>
+    <div class="modal" id="profileEdit">
       <div class="modal__container">
         <button
           type="button"
           class="modal__exit-button"
           aria-label="exit button"
+          id="profileExitButton"
         ></button>
 
-        <form class="modal__form">
+        <form class="modal__form"  id="editProfileForm">
           <h3 class="modal__form-title">Edit profile</h3>
 
           <fieldset class="modal__form-fieldset">
@@ -75,6 +85,7 @@
               class="modal__form-input modal__form-input-name"
               name="name"
               placeholder="Name"
+              id="profileName"
               required
             />
 
@@ -83,26 +94,86 @@
               class="modal__form-input modal__form-input-description"
               name="description"
               placeholder="Description"
+              id="profileDescription"
               required
             />
           </fieldset>
 
           <fieldset class="modal__form-fieldset">
-            <button type="button" class="modal__form-button">Save</button>
+            <button
+              type="submit"
+              class="modal__form-button"
+              id="profileSaveButton"
+            >
+              Save
+            </button>
           </fieldset>
         </form>
       </div>
     </div>
 
-    <template id="card-template">
-      <li class="card">
-        <img class="card__image" src="" alt=""/>
-        <div class="card__description">
-          <h2 class="card__title"></h2>
-          <button class="card__heart-button" type="button"></button>
+    <!----------------------------- Adding cards------------------------------>
+
+    <div class="modal" id="addCard">
+      <div class="modal__container">
+        <button
+          type="button"
+          class="modal__exit-button"
+          aria-label="exit button"
+          id="addExitButton"
+        ></button>
+
+        <form class="modal__form" id="addCardForm">
+          <h3 class="modal__form-title">New Place</h3>
+
+          <fieldset class="modal__form-fieldset">
+            <input
+              type="text"
+              class="modal__form-input modal__form-input-name"
+              name="title"
+              placeholder="Title"
+              id="addName"
+              required
+            />
+
+            <input
+              type="text"
+              class="modal__form-input modal__form-input-description"
+              name="link"
+              placeholder="Image link"
+              id="addLink"
+              required
+            />
+          </fieldset>
+
+          <fieldset class="modal__form-fieldset">
+            <button
+              type="submit"
+              class="modal__form-button"
+              id="addCreateButton"
+            >
+              Create
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <!----------------------------- image preview------------------------------>
+    <div class="modal" id="image-preview">
+      <div class="modal__container">
+        <button
+          type="button"
+          class="modal__exit-button"
+          aria-label="exit button"
+          id="previewExitButton"
+        ></button>
+        <div>
+          <img class="modal__preview-image" alt="" src=" " />
+          <h3 class="modal__preview-title"></h3>
         </div>
-      </li>
-    </template>
+      </div>
+    </div>
 
     <script src="./scripts/index.js"></script>
   </body>
