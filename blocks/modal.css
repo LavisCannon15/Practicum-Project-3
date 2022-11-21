@@ -88,13 +88,34 @@
   width: 358px;
 }
 
+.modal__error {
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: red;
+  transition: opacity 0.3s;
+  margin: 0;
+  padding: 0;
+}
+
+.modal__error_visible {
+  opacity: 1;
+}
+
+.modal__form-input_type_error {
+  border-bottom: 1px solid red;
+}
+
 .modal__form-input {
   color: #000000;
 
   border: none;
-  border-bottom: 1px solid #000000;
 
   height: 27.26px;
+  width: 358px;
+
+  border-bottom: 1px solid #000000;
 }
 
 .modal__form-input-name {
@@ -183,6 +204,10 @@
     margin-left: 22px;
     margin-right: 22px;
 
+    width: 238px;
+  }
+
+  .modal__form-input {
     width: 238px;
   }
 

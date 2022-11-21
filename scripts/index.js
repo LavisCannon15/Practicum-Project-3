@@ -97,7 +97,7 @@ const modalAddExitButton = document.querySelector("#addExitButton");
 
 const modalAddForm = document.querySelector("#addCardForm");
 
-const modalAddNameInput = modalAddForm.querySelector("#addName");
+const modalAddTitleInput = modalAddForm.querySelector("#addTitle");
 const modalAddLinkInput = modalAddForm.querySelector("#addLink");
 const modalAddCreateButton = document.querySelector("#addCreateButton");
 
@@ -170,7 +170,7 @@ initialCards.forEach(renderCard);
 
 modalAddForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
-  const newCardName = modalAddNameInput.value;
+  const newCardName = modalAddTitleInput.value;
   const newCardLink = modalAddLinkInput.value;
 
   renderCard({ name: newCardName, link: newCardLink });

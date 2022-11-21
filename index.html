@@ -76,27 +76,37 @@
           id="profileExitButton"
         ></button>
 
-        <form class="modal__form"  id="editProfileForm">
+        <form class="modal__form" id="editProfileForm">
           <h3 class="modal__form-title">Edit profile</h3>
 
           <fieldset class="modal__form-fieldset">
-            <input
-              type="text"
-              class="modal__form-input modal__form-input-name"
-              name="name"
-              placeholder="Name"
-              id="profileName"
-              required
-            />
+            <label class="modal__label">
+              <input
+                type="text"
+                class="modal__form-input modal__form-input-name"
+                name="name"
+                placeholder="Name"
+                id="profileName"
+                minlength="2"
+                maxlength="40"
+                required
+              />
+              <span class="modal__error" id="profileName-error"></span>
+            </label>
 
-            <input
-              type="text"
-              class="modal__form-input modal__form-input-description"
-              name="description"
-              placeholder="Description"
-              id="profileDescription"
-              required
-            />
+            <label class="modal__label">
+              <input
+                type="text"
+                class="modal__form-input modal__form-input-description"
+                name="description"
+                placeholder="Description"
+                id="profileDescription"
+                minlength="2"
+                maxlength="200"
+                required
+              />
+              <span class="modal__error" id="profileDescription-error"></span>
+            </label>
           </fieldset>
 
           <fieldset class="modal__form-fieldset">
@@ -127,23 +137,31 @@
           <h3 class="modal__form-title">New Place</h3>
 
           <fieldset class="modal__form-fieldset">
-            <input
-              type="text"
-              class="modal__form-input modal__form-input-name"
-              name="title"
-              placeholder="Title"
-              id="addName"
-              required
-            />
+            <label class="modal__label">
+              <input
+                type="text"
+                class="modal__form-input modal__form-input-name"
+                name="title"
+                placeholder="Title"
+                id="addTitle"
+                minlength="1"
+                maxlength="30"
+                required
+              />
+              <span class="modal__error" id="addTitle-error"></span>
+            </label>
 
-            <input
-              type="text"
-              class="modal__form-input modal__form-input-description"
-              name="link"
-              placeholder="Image link"
-              id="addLink"
-              required
-            />
+            <label class="modal__label">
+              <input
+                type="url"
+                class="modal__form-input modal__form-input-description"
+                name="link"
+                placeholder="Image link"
+                id="addLink"
+                required
+              />
+              <span class="modal__error" id="modalLink-error"></span>
+            </label>
           </fieldset>
 
           <fieldset class="modal__form-fieldset">
@@ -175,6 +193,8 @@
       </div>
     </div>
 
+    <!-----JS Files -->
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>
