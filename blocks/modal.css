@@ -103,10 +103,6 @@
   opacity: 1;
 }
 
-.modal__form-input_type_error {
-  border-bottom: 1px solid red;
-}
-
 .modal__form-input {
   color: #000000;
 
@@ -116,6 +112,10 @@
   width: 358px;
 
   border-bottom: 1px solid #000000;
+}
+
+.modal__form-input_type_error {
+  border-bottom: 1px solid red;
 }
 
 .modal__form-input-name {
@@ -164,6 +164,16 @@
 
 .modal__form-button:hover {
   opacity: 0.8;
+}
+
+.modal__form-button_disabled {
+  border: 1px solid #000000;
+  opacity: 0.2;
+  cursor: default;
+}
+ 
+.modal__form-button_disabled:hover {
+  opacity: 0.2;
 }
 
 .modal__preview-image {

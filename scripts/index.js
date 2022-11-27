@@ -34,12 +34,31 @@ const initialCards = [
   },
 ];
 
+function escCloseModal(event) {
+  if (event.key == "Escape") {
+    const openedModal = document.querySelector(".modal__opened");
+    closeModal(openedModal);
+  }
+}
+
+function outsideCloseModal(event) {
+  if (event.target.classList.contains("modal")) {
+    closeModal(event.target);
+  }
+}
+
 function openModal(popup) {
   popup.classList.add("modal__opened");
+
+  popup.addEventListener("mousedown", outsideCloseModal);
+  document.addEventListener("keyup", escCloseModal);
 }
 
 function closeModal(popup) {
   popup.classList.remove("modal__opened");
+
+  popup.removeEventListener("mousedown", outsideCloseModal);
+  document.removeEventListener("keyup", escCloseModal);
 }
 
 /*-------------------------Profile elements------------------------------*/
@@ -178,4 +197,9 @@ modalAddForm.addEventListener("submit", (evt) => {
   closeModal(modalAddCard);
 
   modalAddForm.reset();
+  toggleButtonState(
+    [modalAddTitleInput, modalAddLinkInput],
+    modalAddCreateButton,
+    config
+  );
 });
