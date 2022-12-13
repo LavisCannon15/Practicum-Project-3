@@ -23,8 +23,8 @@ function hasInvalidInput(inputList) {
   return !inputList.every((inputEl) => inputEl.validity.valid);
 }
 
-function toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
-  if (hasInvalidInput(inputEls)) {
+function toggleButtonState(inputEl, submitButton, { inactiveButtonClass }) {
+  if (hasInvalidInput(inputEl)) {
     submitButton.classList.add(inactiveButtonClass);
     submitButton.disabled = true;
     return;
@@ -54,6 +54,9 @@ function enableValidation(options) {
     });
 
     setEventListeners(formEl, options);
+    const inputEls = [...formEl.querySelectorAll(options.inputSelector)];
+    const submitButton = formEl.querySelector(options.submitButtonSelector);
+    toggleButtonState(inputEls, submitButton, options);
   });
 }
 
@@ -65,5 +68,3 @@ const config = {
   inputErrorClass: "modal__form-input_type_error",
   errorClass: "modal__error_visible",
 };
-
-enableValidation(config);
