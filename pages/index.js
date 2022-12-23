@@ -1,35 +1,32 @@
-import {initialCards, selectors } from '../components/constants.js';
+import { initialCards, selectors } from "../utils/constants.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-import { openModal, closeModal } from "../components/utils.js";
-import Section from '../components/Section.js'
-import PopupWithImage from '../components/PopupWithImage.js';
+import { openModal, closeModal } from "../utils/utils.js";
+import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 
 /* -------------------------------------------------------------------------- */
 /*                               // cards array                               */
 /* -------------------------------------------------------------------------- */
 
-
 // Create instances of the classes
 
 const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
-const CardSection = new Section(
-  {
+const CardSection = new Section({
   renderer: (data) => {
     const cardEl = new Card(
       {
-        data, 
+        data,
         handleImageClick: (imgData) => {
-      cardPreviewPopup.open(imgData);
-    },
-  }, selectors.cardTemplate, );
+          cardPreviewPopup.open(imgData);
+        },
+      },
+      selectors.cardTemplate
+    );
     CardSection.addItems(cardEl.getView());
   },
   selector: selectors.cardSection,
-  },
-
-);
-
+});
 
 //initialize all my instances
 CardSection.renderItems(initialCards);

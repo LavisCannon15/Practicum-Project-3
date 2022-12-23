@@ -1,0 +1,25 @@
+{
+  "name": "practicum-project-8",
+  "version": "0.0.1",
+  "description": "adding webpack, placing classes in seperate files",
+  "private": true,
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack serve --open",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "LavisCannon",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^9.1.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.3",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.2",
+    "postcss-loader": "^7.0.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
