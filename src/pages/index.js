@@ -10,18 +10,21 @@ import UserInfo from "../components/UserInfo.js";
 /*                               // cards array                               */
 /* -------------------------------------------------------------------------- */
 
+const cardSelector = "#card-template";
+const cardTemplate = document.querySelector(cardSelector).content.firstElementChild;
+
 // Create instances of the classes
 
 const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 
-const CardSection = new Section({
+const CardSection = new Section(
+  {
+  items: initialCards,
   renderer: (data) => {
-    const card = new Card(data, cardSelector);
-    CardSection.addItem(card.getView());
+    const card = new Card({ data: data }, selectors.cardTemplate);
+    CardSection.addItems(card.getView());
   },
-  items: initialCards, 
-  selector: ".card-list", 
-});
+}, selectors.cardSection);
 
 CardSection.renderItems();
 
@@ -118,11 +121,10 @@ addButton.addEventListener("click", () => {
 
 /*-----------------------------Card list elements------------------------------*/
 
-const cardSelector = "#card-template";
+//const cardSelector = "#card-template";
 
-const cardTemplate =
-  document.querySelector(cardSelector).content.firstElementChild;
-const cardList = document.querySelector(".cards__list");
+//const cardTemplate = document.querySelector(cardSelector).content.firstElementChild;
+//const cardList = document.querySelector(".cards__list");
 
 //Image Preview
 export const cardPreview = document.querySelector("#image-preview");
