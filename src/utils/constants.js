@@ -43,4 +43,6 @@ export const selectors = {
   cardSection: ".cards__list",
   cardTemplate: "#card-template",
   previewPopup: "#image-preview",
+  profileModal: "#profileEdit",
+  addCardModal: "#addCard",
 };

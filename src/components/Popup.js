@@ -1,14 +1,14 @@
 export default class Popup {
   constructor(popupSelector) {
     this._popupElement = document.querySelector(popupSelector);
-    this._exitButtonElement =
-      this._popupElement.querySelector("modal__exit-button");
-
     this.openedModal = document.querySelector(".modal__opened");
   }
 
   openModal() {
     this._popupElement.classList.add("modal__opened");
+    this._exitButtonElement = this._popupElement.querySelector(
+      ".modal__exit-button"
+    );
     this.setEventListeners();
   }
 
@@ -18,15 +18,27 @@ export default class Popup {
   }
 
   setEventListeners() {
-    this._popupElement.addEventListener("mousedown", _outsideCloseModal);
-    document.addEventListener("keyup", _escCloseModal);
-    this._exitButtonElement.addEventListener("click", this.closeModal);
+    this._popupElement.addEventListener(
+      "mousedown",
+      this._outsideCloseModal.bind(this)
+    );
+    document.addEventListener("keyup", this._escCloseModal.bind(this));
+    this._exitButtonElement.addEventListener(
+      "click",
+      this.closeModal.bind(this)
+    );
   }
 
   removeEventListeners() {
-    this._popupElement.removeEventListener("mousedown", _outsideCloseModal);
-    document.removeEventListener("keyup", escCloseModal);
-    this._exitButtonElement.removeEventListener("click", this.closeModal);
+    this._popupElement.removeEventListener(
+      "mousedown",
+      this._outsideCloseModal.bind(this)
+    );
+    document.removeEventListener("keyup", this._escCloseModal.bind(this));
+    this._exitButtonElement.removeEventListener(
+      "click",
+      this.closeModal.bind(this)
+    );
   }
 
   _escCloseModal(event) {

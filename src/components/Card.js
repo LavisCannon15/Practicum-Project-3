@@ -1,23 +1,16 @@
-import {
-  cardPreview,
-  cardPreviewImage,
-  cardPreviewTitle,
-} from "../pages/index.js";
-
 export default class Card {
-  constructor({ data, handleImageClick, openModal, closeModal }, cardSelector) {
+  constructor({ data, handleCardClick }, cardSelector) {
     this._name = data.name;
     this._link = data.link;
 
     this._cardSelector = cardSelector;
-    this._handleImageClick = handleImageClick;
+    this._handleCardClick = handleCardClick;
 
     this._cardTemplate = document.querySelector(
       this._cardSelector
     ).content.firstElementChild;
 
-    this._openModal = openModal;
-    this._closeModal = closeModal;
+    this._exitButtonElement = document.querySelector(".modal__exit-button");
   }
 
   _setEventListeners() {
@@ -29,6 +22,7 @@ export default class Card {
 
     //modal preview
     this._cardImage.addEventListener("click", this._handlePreviewPicture);
+
   }
 
   _handleHeartIcon = () => {
@@ -40,16 +34,9 @@ export default class Card {
   };
 
   _handlePreviewPicture = () => {
-    cardPreviewTitle.textContent = this._name;
-    cardPreviewImage.src = this._link;
-    cardPreviewImage.alt = this._name;
-
-    this._openModal(cardPreview);
+    this._handleCardClick.openModal({ link: this._link, name: this._name });
   };
 
-  closeModal() {
-    this._closeModal(cardPreview);
-  }
 
   getView() {
     this._cardElement = this._cardTemplate.cloneNode(true);
@@ -61,6 +48,7 @@ export default class Card {
     this._cardDeleteButton = this._cardElement.querySelector(
       ".card__delete-button"
     );
+
     this._setEventListeners();
 
     this._cardImage.src = this._link;

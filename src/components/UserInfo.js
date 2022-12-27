@@ -1,13 +1,18 @@
 export default class UserInfo {
-  constructor(profileNameSelector, profileAboutSelector) {
-    this._profileNameElement = document.querySelector(profileNameSelector);
-    this._profileDescriptionElement =
-      document.querySelector(profileAboutSelector);
+  constructor(profileNameSelector, profileDescriptionSelector) {
+
+    this._profileTitle = document.querySelector(".profile__title");
+    this._profileDescription = document.querySelector(".profile__description");
+
+    this._modalProfileForm = document.querySelector("#editProfileForm");
+    
+    this._profileNameElement = this._modalProfileForm.querySelector(profileNameSelector);
+    this._profileDescriptionElement = this._modalProfileForm.querySelector(profileDescriptionSelector);
   }
 
-  setProfileInfo({ profileName, profileDescription }) {
-    this._profileNameElement.textContent = profileName;
-    this._profileDescriptionElement.textContent = profileDescription;
+  setProfileInfo() {
+    this._profileTitle.textContent = this._profileNameElement.value;
+    this._profileDescription.textContent = this._profileDescriptionElement.value;
   }
 
   getProfileInfo() {
@@ -16,5 +21,4 @@ export default class UserInfo {
       about: this._profileDescriptionElement.textContent,
     };
   }
-
 }
