@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Around the US</title>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Practicum project 3" />
+    <meta name="keywords" content="Practicum project 3" />
+    <meta name="author" content="Lavis Cannon" />
+
+    <link rel="stylesheet" href="./pages/index.css" />
+     <!--<script defer src="./dist/main.js"></script> -->
+  <script defer src="bundle.js"></script></head>
+
+  <body class="page">
+    <div class="page__content">
+      <header class="header page__section">
+        <img
+          src="./images/around_the_us_logo.svg"
+          alt="around the us logo"
+          class="logo"
+        />
+      </header>
+
+      <main class="content">
+        <section class="profile page__section">
+          <img
+            src="./images/jacques-cousteau.png"
+            alt="jacques-cousteau photo"
+            class="profile__image"
+          />
+
+          <div class="profile__info">
+            <h1 class="profile__title">Jacques Cousteau</h1>
+            <button
+              class="profile__edit-button"
+              type="button"
+              aria-label="edit_button"
+            ></button>
+            <p class="profile__description">Explorer</p>
+          </div>
+          <button
+            class="profile__add-button"
+            type="button"
+            aria-label="add_button"
+          ></button>
+        </section>
+
+        <section class="cards page__section">
+          <ul class="cards__list">
+          <template id="card-template">
+            <li class="card">
+              <img class="card__image" src=" " alt="" />
+              <div class="card__description">
+                <h2 class="card__title"></h2>
+                <button class="card__heart-button" type="button"></button>
+              </div>
+              <button class="card__delete-button" type="button"></button>
+            </li>
+          </template>
+          </ul>
+        </section>
+      </main>
+
+      <footer class="footer page__section">
+        <p class="footer__copyright">© 2022 Around The U.S.</p>
+      </footer>
+    </div>
+
+    <!----------------------------- profile edit------------------------------>
+    <div class="modal" id="profileEdit">
+      <div class="modal__container">
+        <button
+          type="button"
+          class="modal__exit-button"
+          aria-label="exit button"
+          id="profileExitButton"
+        ></button>
+
+        <form class="modal__form" id="editProfileForm">
+          <h3 class="modal__form-title">Edit profile</h3>
+
+          <fieldset class="modal__form-fieldset">
+            <label class="modal__label">
+              <input
+                type="text"
+                class="modal__form-input modal__form-input-name"
+                name="name"
+                placeholder="Name"
+                id="profileName"
+                minlength="2"
+                maxlength="40"
+                required
+              />
+              <span class="modal__error" id="profileName-error"></span>
+            </label>
+            
+
+            <label class="modal__label">
+              <input
+                type="text"
+                class="modal__form-input modal__form-input-description"
+                name="description"
+                placeholder="Description"
+                id="profileDescription"
+                minlength="2"
+                maxlength="200"
+                required
+              />
+              <span class="modal__error" id="profileDescription-error"></span>
+            </label>
+          </fieldset>
+
+          <fieldset class="modal__form-fieldset">
+            <button
+              type="submit"
+              class="modal__form-button"
+              id="profileSaveButton"
+            >
+              Save
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <!----------------------------- Adding cards------------------------------>
+
+    <div class="modal" id="addCard">
+      <div class="modal__container">
+        <button
+          type="button"
+          class="modal__exit-button"
+          aria-label="exit button"
+          id="addExitButton"
+        ></button>
+
+        <form class="modal__form" id="addCardForm">
+          <h3 class="modal__form-title">New Place</h3>
+
+          <fieldset class="modal__form-fieldset">
+            <label class="modal__label">
+              <input
+                type="text"
+                class="modal__form-input modal__form-input-name"
+                name="title"
+                placeholder="Title"
+                id="addTitle"
+                minlength="1"
+                maxlength="30"
+                required
+              />
+              <span class="modal__error" id="addTitle-error"></span>
+            </label>
+
+            <label class="modal__label">
+              <input
+                type="url"
+                class="modal__form-input modal__form-input-description"
+                name="link"
+                placeholder="Image link"
+                id="addLink"
+                required
+              />
+              <span class="modal__error" id="addLink-error"></span>
+            </label>
+          </fieldset>
+
+          <fieldset class="modal__form-fieldset">
+            <button
+              type="submit"
+              class="modal__form-button modal__form-button_disabled"
+              id="addCreateButton"
+              disabled
+            >
+              Create
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <!----------------------------- image preview------------------------------>
+    <div class="modal" id="image-preview">
+      <div class="modal__container">
+        <button
+          type="button"
+          class="modal__exit-button"
+          aria-label="exit button"
+          id="previewExitButton"
+        ></button>
+        <div>
+          <img class="modal__preview-image" alt="" src=" " />
+          <h3 class="modal__preview-title"></h3>
+        </div>
+      </div>
+    </div>
+
+    <!-----JS Files -->
+    <script type="module" src="./pages/index.js"></script>
+  </body>
+</html>
