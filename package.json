@@ -2,25 +2,30 @@
   "name": "practicum-project-8",
   "version": "0.0.1",
   "description": "adding webpack, placing classes in seperate files",
-  "private": true,
+  "main": "index.js",
   "scripts": {
-    "build": "webpack",
-    "dev": "webpack serve --mode development",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
   },
+  "keywords": [],
   "author": "LavisCannon",
-  "license": "UNLICENSED",
+  "license": "ISC",
   "devDependencies": {
-    "babel": "^6.23.0",
-    "babel-cli": "^6.26.0",
-    "babel-loader": "^9.1.0",
-    "clean-webpack-plugin": "^4.0.0",
-    "css-loader": "^6.7.3",
-    "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.7.2",
-    "postcss-loader": "^7.0.2",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
+    "@babel/core": "7.18.9",
+    "@babel/preset-env": "7.18.9",
+    "autoprefixer": "10.4.7",
+    "babel-loader": "8.2.5",
+    "clean-webpack-plugin": "4.0.0",
+    "css-loader": "6.7.1",
+    "cssnano": "5.1.12",
+    "html-webpack-plugin": "5.5.0",
+    "mini-css-extract-plugin": "2.6.1",
+    "postcss-loader": "7.0.1",
+    "webpack": "5.73.0",
+    "webpack-cli": "4.10.0",
+    "webpack-dev-server": "4.9.3"
+  },
+  "dependencies": {
+    "core-js": "3.23.5"
   }
 }
