@@ -77,10 +77,9 @@ function fillProfileForm()
 
 
 const editProfileModal = new PopupWithForm(selectors.profileModal, () => {
+  addCardModal.setEventListeners();
+  const inputValues = editProfileModal.getInputValues();
 
-  //const userInfo = new UserInfo(selectors.profileName, selectors.profileAbout);
-
-  const inputValues = editProfileModal._getInputValues();
   const name = inputValues.name;
   const description = inputValues.description;
 
@@ -109,7 +108,8 @@ const addCardFormValidator = new FormValidator(settings, modalAddForm);
 addCardFormValidator.enableValidation();
 
 const addCardModal = new PopupWithForm(selectors.addCardModal, () => {
-  const cardData = addCardModal._getInputValues();
+  addCardModal.setEventListeners();
+  const cardData = addCardModal.getInputValues();
 
   const card = createCard(cardData);
   cardSection.addItems(card);
