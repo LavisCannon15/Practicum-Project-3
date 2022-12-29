@@ -19,7 +19,11 @@ export default class PopupWithForm extends Popup {
     this._modalFormInputs.forEach(
       (input) => (inputValues[input.name] = input.value)
     );
-    return inputValues;
+
+    return {
+      name: inputValues.title,
+      link: inputValues.link,
+    };
   }
 
   _handleSubmit = (evt) => {
