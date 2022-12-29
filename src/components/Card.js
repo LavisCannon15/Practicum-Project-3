@@ -9,8 +9,6 @@ export default class Card {
     this._cardTemplate = document.querySelector(
       this._cardSelector
     ).content.firstElementChild;
-
-    this._exitButtonElement = document.querySelector(".modal__exit-button");
   }
 
   _setEventListeners() {

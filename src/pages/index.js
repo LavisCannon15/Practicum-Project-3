@@ -12,7 +12,31 @@ import UserInfo from "../components/UserInfo.js";
 
 const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 
-const CardSection = new Section(
+function createCard(item) {
+  const card = new Card(
+    {
+      data: item,
+      handleCardClick: cardPreviewPopup,
+    },
+    selectors.cardTemplate
+  );
+  return card.getView();
+}
+
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (data) => {
+      const card = createCard(data);
+      cardSection.addItems(card);
+    },
+  },
+  selectors.cardSection
+);
+
+
+/*
+const cardSection = new Section(
   {
     items: initialCards,
     renderer: (data) => {
@@ -20,13 +44,14 @@ const CardSection = new Section(
         { data: data, handleCardClick: cardPreviewPopup },
         selectors.cardTemplate
       );
-      CardSection.addItems(card.getView());
+      cardSection.addItems(card.getView());
     },
   },
   selectors.cardSection
 );
+*/
 
-CardSection.renderItems();
+cardSection.renderItems();
 
 
 /*-------------------------Profile elements------------------------------*/
@@ -35,23 +60,38 @@ const addButton = document.querySelector(".profile__add-button");
 
 /*------------------------Modal Profile elements--------------------------*/
 const modalProfileForm = document.querySelector("#editProfileForm");
+const modalProfileNameInput = document.querySelector("#profileName");
+const modalProfileDescriptionInput = document.querySelector("#profileDescription");
 
 
-
+const userInfo = new UserInfo(selectors.profileName, selectors.profileAbout);
 const profileFormValidator = new FormValidator(settings, modalProfileForm);
 profileFormValidator.enableValidation();
 
-const editProfileModal = new PopupWithForm(selectors.profileModal, function (evt) {
+function fillProfileForm()
+{
+  const { name, description } = userInfo.getProfileInfo();
+  modalProfileNameInput.value = name;
+  modalProfileDescriptionInput.value = description;
+}
+
+
+const editProfileModal = new PopupWithForm(selectors.profileModal, (data) => {
   //evt.preventDefault();
 
-  const userInfo = new UserInfo("#profileName", "#profileDescription");
-  userInfo.setProfileInfo();
+  //const userInfo = new UserInfo(selectors.profileName, selectors.profileAbout);
 
+  const inputValues = editProfileModal._getInputValues();
+  const name = inputValues.name;
+  const description = inputValues.description;
+
+  userInfo.setProfileInfo(name, description);
   editProfileModal.closeModal();
   
 });
 
 profileEditButton.addEventListener("click", () => {
+  fillProfileForm();
   editProfileModal.openModal();
   profileFormValidator.toggleButtonState();
 });
@@ -68,19 +108,11 @@ const addCardFormValidator = new FormValidator(settings, modalAddForm);
 addCardFormValidator.enableValidation();
 
 const addCardModal = new PopupWithForm(selectors.addCardModal, function (evt) {
-  const cardData = {
-    name: modalAddTitleInput.value,
-    link: modalAddLinkInput.value,
-  };
-  const newCard = new Card(
-    {
-      data: cardData,
-      handleCardClick: cardPreviewPopup, 
-    },
-    selectors.cardTemplate
-  );
 
-  CardSection.addItems(newCard.getView());
+  const cardData = this._getInputValues();
+
+  const card = createCard(cardData);
+  cardSection.addItems(card);
 
   addCardModal.closeModal();
 });

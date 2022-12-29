@@ -11,7 +11,6 @@ export default class PopupWithImage extends Popup {
       ".modal__preview-title"
     );
 
-    this._exitButtonElement = document.querySelector("#previewExitButton");
   }
 
   openModal({ link, name }) {

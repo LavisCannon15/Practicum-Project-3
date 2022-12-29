@@ -64,4 +64,6 @@ export const selectors = {
   previewPopup: "#image-preview",
   profileModal: "#profileEdit",
   addCardModal: "#addCard",
+  profileName: ".profile__title",
+  profileAbout: ".profile__description",
 };
