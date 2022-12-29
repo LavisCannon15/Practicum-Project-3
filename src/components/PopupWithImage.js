@@ -10,12 +10,9 @@ export default class PopupWithImage extends Popup {
     this._cardPreviewTitle = this._popupElement.querySelector(
       ".modal__preview-title"
     );
-
   }
 
   openModal({ link, name }) {
-
-
     this._cardPreviewImage.src = link;
     this._cardPreviewImage.alt = name;
     this._cardPreviewTitle.textContent = name;
