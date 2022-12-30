@@ -9,6 +9,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 
 const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
+cardPreviewPopup.setEventListeners();
 
 function createCard(item) {
   const card = new Card(
@@ -56,7 +57,6 @@ function fillProfileForm() {
 }
 
 const editProfileModal = new PopupWithForm(selectors.profileModal, () => {
-  addCardModal.setEventListeners();
   const inputValues = editProfileModal.getInputValues();
 
   const name = inputValues.name;
@@ -66,6 +66,8 @@ const editProfileModal = new PopupWithForm(selectors.profileModal, () => {
 
   editProfileModal.closeModal();
 });
+
+editProfileModal.setEventListeners();
 
 profileEditButton.addEventListener("click", () => {
   fillProfileForm();
@@ -80,7 +82,6 @@ const addCardFormValidator = new FormValidator(settings, modalAddForm);
 addCardFormValidator.enableValidation();
 
 const addCardModal = new PopupWithForm(selectors.addCardModal, () => {
-  addCardModal.setEventListeners();
   const cardData = addCardModal.getInputValues();
 
   const card = createCard(cardData);
@@ -88,6 +89,8 @@ const addCardModal = new PopupWithForm(selectors.addCardModal, () => {
 
   addCardModal.closeModal();
 });
+
+addCardModal.setEventListeners();
 
 addButton.addEventListener("click", () => {
   addCardModal.openModal();
