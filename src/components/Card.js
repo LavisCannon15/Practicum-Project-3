@@ -20,7 +20,6 @@ export default class Card {
 
     //modal preview
     this._cardImage.addEventListener("click", this._handlePreviewPicture);
-
   }
 
   _handleHeartIcon = () => {
@@ -34,7 +33,6 @@ export default class Card {
   _handlePreviewPicture = () => {
     this._handleCardClick.openModal({ link: this._link, name: this._name });
   };
-
 
   getView() {
     this._cardElement = this._cardTemplate.cloneNode(true);
@@ -56,4 +54,3 @@ export default class Card {
     return this._cardElement;
   }
 }
-
