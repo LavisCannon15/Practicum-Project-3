@@ -4,6 +4,10 @@
   padding-top: 40px;
 }
 
+.profile__image-container {
+  position: relative;
+}
+
 .profile__image {
   width: 120px;
   height: 120px;
@@ -15,11 +19,32 @@
   margin-right: 24px;
 }
 
-.profile__image:hover {
-  content: url(../images/profile-image-edit.svg);
+.profile__image-edit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 26px;
   height: 26px;
+  display: none;
 }
+
+.profile__image:before {
+  content: url(../images/profile-image-edit.svg);
+  width: 20px;
+  height: 20px;
+  display: none;
+}
+
+.profile__image:hover {
+  opacity: 80%;
+}
+
+.profile__image:hover + .profile__image-edit {
+  display: block;
+}
+
+
 
 .profile__info {
   display: grid;
