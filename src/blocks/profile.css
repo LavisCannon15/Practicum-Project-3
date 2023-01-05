@@ -27,13 +27,8 @@
   width: 26px;
   height: 26px;
   display: none;
-}
 
-.profile__image:before {
   content: url(../images/profile-image-edit.svg);
-  width: 20px;
-  height: 20px;
-  display: none;
 }
 
 .profile__image:hover {
@@ -43,8 +38,6 @@
 .profile__image:hover + .profile__image-edit {
   display: block;
 }
-
-
 
 .profile__info {
   display: grid;
