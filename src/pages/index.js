@@ -13,13 +13,23 @@ import UserInfo from "../components/UserInfo.js";
 const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 cardPreviewPopup.setEventListeners();
 
-function createCard(item) {
+function createCard(item, handleCardClick, cardSelector) {
+  const deleteCardModal = new PopupWithForm(
+    selectors.confirmationModal,
+    (cardElement) => {
+      cardElement.remove();
+      deleteCardModal.closeModal();
+    }
+  );
+  deleteCardModal.setEventListeners();
+
   const card = new Card(
     {
       data: item,
-      handleCardClick: cardPreviewPopup,
+      handleCardClick: handleCardClick,
+      deleteCardModal: deleteCardModal,
     },
-    selectors.cardTemplate
+    cardSelector
   );
   return card.getView();
 }
@@ -28,7 +38,7 @@ const cardSection = new Section(
   {
     items: initialCards,
     renderer: (data) => {
-      const card = createCard(data);
+      const card = createCard(data, cardPreviewPopup, selectors.cardTemplate);
       cardSection.addItems(card);
     },
   },
@@ -37,9 +47,10 @@ const cardSection = new Section(
 
 cardSection.renderItems();
 
-/*-------------------------Profile elements------------------------------*/
+/*-------------------------Profile button elements------------------------------*/
 const profileEditButton = document.querySelector(".profile__edit-button");
 const addButton = document.querySelector(".profile__add-button");
+const profilePictureEditButton = document.querySelector(".profile__image-edit");
 
 /*------------------------Modal Profile elements--------------------------*/
 const modalProfileForm = document.querySelector("#editProfileForm");
@@ -97,4 +108,35 @@ addCardModal.setEventListeners();
 addButton.addEventListener("click", () => {
   addCardModal.openModal();
   addCardFormValidator.toggleButtonState();
+});
+
+/*------------------------Change profile picture--------------------------*/
+
+const profilePictureForm = document.querySelector("#profilePictureForm");
+const profilePicture = document.querySelector(".profile__image");
+const profileName = document.querySelector(".profile__title");
+
+const profilePictureFormValidator = new FormValidator(
+  settings,
+  profilePictureForm
+);
+profilePictureFormValidator.enableValidation();
+
+const profilePictureModal = new PopupWithForm(
+  selectors.changeProfilePictureModal,
+  () => {
+    const inputValues = profilePictureModal.getInputValues();
+    const link = inputValues.link;
+    profilePicture.src = link;
+    profilePicture.alt = profileName.textContent;
+
+    profilePictureModal.closeModal();
+  }
+);
+
+profilePictureModal.setEventListeners();
+
+profilePictureEditButton.addEventListener("click", () => {
+  profilePictureModal.openModal();
+  profileFormValidator.toggleButtonState();
 });

@@ -1,25 +1,20 @@
 import PopupWithForm from "./PopupWithForm";
 
 export default class Card {
-  constructor({ data, handleCardClick }, cardSelector) {
+  constructor({ data, handleCardClick, deleteCardModal }, cardSelector) {
     this._name = data.name;
     this._link = data.link;
 
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._deleteCardModal = deleteCardModal
 
     this._cardTemplate = document.querySelector(
       this._cardSelector
     ).content.firstElementChild;
 
+    this._handleDeleteConfirm = this._handleDeleteConfirm.bind(this);
 
-    //deletecardModal
-    this._deleteCardModal = new PopupWithForm(
-      "#confirmation",
-      this._handleDeleteConfirm.bind(this)
-    );
-
-    this._deleteCardModal.setEventListeners();
   }
 
   /*
@@ -29,10 +24,12 @@ export default class Card {
   }
   */
 
+  
   _handleDeleteConfirm(cardElement) {
     cardElement.remove();
     this._deleteCardModal.closeModal();
   }
+  
 
   _setEventListeners() {
     //Like button

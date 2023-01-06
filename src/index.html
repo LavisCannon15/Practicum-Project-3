@@ -244,23 +244,21 @@
 
         <form
           class="modal__form modal__form_type_profile-picture"
-          id="ProfilePictureForm"
+          id="profilePictureForm"
         >
-          <h3 class="modal__form-title">Change profile pictue</h3>
+          <h3 class="modal__form-title">Change profile picture</h3>
 
           <fieldset class="modal__form-fieldset">
             <label class="modal__label">
               <input
-                type="text"
-                class="modal__form-input modal__form-input-name"
+                type="url"
+                class="modal__form-input modal__form-input-description"
                 name="link"
                 placeholder="Image link"
                 id="profilePictureLink"
-                minlength="1"
-                maxlength="30"
                 required
               />
-              <span class="modal__error" id="profilePicture-error"></span>
+              <span class="modal__error" id="profilePictureLink-error"></span>
             </label>
           </fieldset>
 
