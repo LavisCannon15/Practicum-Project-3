@@ -5,34 +5,14 @@ export default class Api {
   }
 
   getUserInfo() {
-    return fetch(`${this.baseUrl}/users/me`, { headers: this.options }) //fetch creates a server request and returns a response
-      .then(
-        //Checks server response
-        (res) => {
-          if (res.status) {
-            return res.json(); //The JSON method parses the JSON response from the server and subsequently returns a promise. We can get any data that we need from inside this promise.
-          }
-
-          // if the server returns an error, reject the promise
-          return Prommise.reject(`Error  ${res.status}`);
-        }
-      )
-      .catch((err) => {
-        console.log(err); // log the error to the console
-      });
+    return fetch(`${this.baseUrl}/users/me`, { method: "GET", headers: this.options }) //fetch creates a server request and returns a response
+      .then(this._processResponse);
   }
 
   getInitialCards() {
-    return fetch(`${this.baseUrl}/cards`, { headers: this.options })
-      .then((res) => {
-        if (res.status) {
-          return res.json();
-        }
-        return Prommise.reject(`Error  ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    return fetch(`${this.baseUrl}/cards`, { method: "GET", headers: this.options })
+    .then(this._processResponse);
+
   }
 
   editUserProfile(userData) {
@@ -48,7 +28,7 @@ export default class Api {
 
   addNewCard(data) {
     return fetch(`${this.baseUrl}/cards`, {
-      method: "PATCH",
+      method: "POST",
       headers: this.options,
       body: JSON.stringify({
         name: data.name,

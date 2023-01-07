@@ -1,14 +1,15 @@
 import "../pages/index.css";
 
-import { initialCards, selectors, settings } from "../utils/constants.js";
+import { initialCards, selectors, settings, apiBaseUrl, apiRequestOptions } from "../utils/constants.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../utils/Api";
 
-//const api = new Api
+const api = new Api(apiBaseUrl, apiRequestOptions);
 
 const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 cardPreviewPopup.setEventListeners();
@@ -140,3 +141,4 @@ profilePictureEditButton.addEventListener("click", () => {
   profilePictureModal.openModal();
   profileFormValidator.toggleButtonState();
 });
+

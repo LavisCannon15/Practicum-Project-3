@@ -70,8 +70,9 @@ export const selectors = {
   profileAbout: ".profile__description",
 };
 
-export const apiBaseUrl = "https://around.nomoreparties.co/v1/group-12";
 
+//API
+export const apiBaseUrl = "https://around.nomoreparties.co/v1/group-12";
 export const apiRequestOptions = {
   authorization: "233760b2-865b-418c-a988-0a5daaaf7846",
   "Content-Type": "application/json"
