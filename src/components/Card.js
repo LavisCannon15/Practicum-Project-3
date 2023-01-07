@@ -1,5 +1,3 @@
-import PopupWithForm from "./PopupWithForm";
-
 export default class Card {
   constructor({ data, handleCardClick, deleteCardModal }, cardSelector) {
     this._name = data.name;
@@ -7,7 +5,7 @@ export default class Card {
 
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    this._deleteCardModal = deleteCardModal
+    this._deleteCardModal = deleteCardModal;
 
     this._cardTemplate = document.querySelector(
       this._cardSelector
@@ -15,6 +13,7 @@ export default class Card {
 
     this._handleDeleteConfirm = this._handleDeleteConfirm.bind(this);
 
+    this._likes = 0;
   }
 
   /*
@@ -24,12 +23,10 @@ export default class Card {
   }
   */
 
-  
   _handleDeleteConfirm(cardElement) {
     cardElement.remove();
     this._deleteCardModal.closeModal();
   }
-  
 
   _setEventListeners() {
     //Like button
@@ -44,6 +41,13 @@ export default class Card {
 
   _handleHeartIcon = () => {
     this._cardHeartButton.classList.toggle("card__heart-button-active");
+
+    if (this._cardHeartButton.classList.contains("card__heart-button-active")) {
+      this._likes += 1;
+    } else {
+      this._likes -= 1;
+    }
+    this._cardHeartButton.textContent = this._likes;
   };
 
   /*
@@ -74,6 +78,7 @@ export default class Card {
     this._cardDeleteButton = this._cardElement.querySelector(
       ".card__delete-button"
     );
+    this._cardLikes - this._cardElement.querySelector(".card__likes");
 
     this._setEventListeners();
 
