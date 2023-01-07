@@ -47,7 +47,7 @@ export default class Card {
     } else {
       this._likes -= 1;
     }
-    this._cardHeartButton.textContent = this._likes;
+    this._cardLikes.textContent = this._likes;
   };
 
   /*
@@ -78,7 +78,7 @@ export default class Card {
     this._cardDeleteButton = this._cardElement.querySelector(
       ".card__delete-button"
     );
-    this._cardLikes - this._cardElement.querySelector(".card__likes");
+    this._cardLikes = this._cardElement.querySelector(".card__likes");
 
     this._setEventListeners();
 

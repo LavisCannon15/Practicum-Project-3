@@ -1,6 +1,12 @@
 import "../pages/index.css";
 
-import { initialCards, selectors, settings, apiBaseUrl, apiRequestOptions } from "../utils/constants.js";
+import {
+  initialCards,
+  selectors,
+  settings,
+  apiBaseUrl,
+  apiRequestOptions,
+} from "../utils/constants.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -47,6 +53,8 @@ const cardSection = new Section(
 );
 
 cardSection.renderItems();
+
+/*-------------------------Profile elements------------------------------*/
 
 /*-------------------------Profile button elements------------------------------*/
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -141,4 +149,3 @@ profilePictureEditButton.addEventListener("click", () => {
   profilePictureModal.openModal();
   profileFormValidator.toggleButtonState();
 });
-

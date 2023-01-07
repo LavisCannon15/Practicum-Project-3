@@ -68,6 +68,7 @@ export const selectors = {
   changeProfilePictureModal: "#changeProfilePicture",
   profileName: ".profile__title",
   profileAbout: ".profile__description",
+  profileImage: ".profile__image",
 };
 
 

@@ -5,7 +5,10 @@ export default class Api {
   }
 
   getUserInfo() {
-    return fetch(`${this.baseUrl}/users/me`, { method: "GET", headers: this.options }) //fetch creates a server request and returns a response
+    return fetch(`${this.baseUrl}/users/me`, {
+      method: "GET",
+      headers: this.options,
+    }) //fetch creates a server request and returns a response
       .then(this._processResponse);
   }
 
@@ -15,13 +18,13 @@ export default class Api {
 
   }
 
-  editUserProfile(userData) {
+  editUserProfile(data) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
       headers: this.options,
       body: JSON.stringify({
-        name: userData.name,
-        description: userData.description,
+        name: data.name,
+        description: data.description,
       }),
     }).then(this._processResponse);
   }

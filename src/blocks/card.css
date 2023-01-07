@@ -63,7 +63,8 @@
 }
 
 .card__likes-container {
-  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .card__heart-button {
@@ -93,8 +94,8 @@
 }
 
 .card__likes {
-  position: absolute;
   top: 20px;
+
 
   font-family: "Inter", Arial, sans-serif;
   font-style: normal;
