@@ -93,17 +93,19 @@ const modalProfileDescriptionInput = document.querySelector(
   "#profileDescription"
 );
 
+const modalProfileSaveButton = document.querySelector("#profileSaveButton");
+
 const userInfo = new UserInfo(selectors.profileName, selectors.profileAbout);
 const profileFormValidator = new FormValidator(settings, modalProfileForm);
 profileFormValidator.enableValidation();
 
-/*
+
 function fillProfileForm() {
   const { name, description } = userInfo.getProfileInfo();
   modalProfileNameInput.value = name;
   modalProfileDescriptionInput.value = description;
 }
-*/
+
 
 api.getUserInfo().then((userData) => {
   //Fills profile form modal from server data
@@ -114,6 +116,7 @@ api.getUserInfo().then((userData) => {
   profilePicture.src = userData.avatar;
   profilePicture.alt = userData.name;
 
+  //updates profile name and description from server
   userInfo.setProfileInfo(userData.name, userData.about);
 });
 
@@ -126,6 +129,7 @@ const editProfileModal = new PopupWithForm(selectors.profileModal, () => {
 
   userInfo.setProfileInfo(name, description);
 
+  modalProfileSaveButton.textContent = "Saving...";
   api.editUserProfile(inputValues); 
 
   editProfileModal.closeModal();
@@ -134,7 +138,7 @@ const editProfileModal = new PopupWithForm(selectors.profileModal, () => {
 editProfileModal.setEventListeners();
 
 profileEditButton.addEventListener("click", () => {
-  //fillProfileForm();
+  fillProfileForm();
   editProfileModal.openModal();
   profileFormValidator.toggleButtonState();
 });
