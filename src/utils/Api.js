@@ -13,9 +13,17 @@ export default class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this.baseUrl}/cards`, { method: "GET", headers: this.options })
-    .then(this._processResponse);
+    return fetch(`${this.baseUrl}/cards`, {
+      method: "GET",
+      headers: this.options,
+    }).then(this._processResponse);
+  }
 
+  getCardLikes(data) {
+    return fetch(`${this.baseUrl}/cards/likes/${data}`, {
+      method: "GET",
+      headers: this.options,
+    }).then(this._processResponse);
   }
 
   editUserProfile(data) {
@@ -24,7 +32,7 @@ export default class Api {
       headers: this.options,
       body: JSON.stringify({
         name: data.name,
-        description: data.description,
+        about: data.description,
       }),
     }).then(this._processResponse);
   }
@@ -66,7 +74,7 @@ export default class Api {
       method: "PATCH",
       headers: this.options,
       body: JSON.stringify({
-        link: data.link,
+        avatar: data.link,
       }),
     }).then(this._processResponse);
   }

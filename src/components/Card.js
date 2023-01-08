@@ -1,11 +1,13 @@
 export default class Card {
-  constructor({ data, handleCardClick, deleteCardModal }, cardSelector) {
-    this._name = data.name;
-    this._link = data.link;
-
+  constructor({ data, handleCardClick, deleteCardModal, api }, cardSelector) {
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._deleteCardModal = deleteCardModal;
+    this._api = api;
+
+    this._name = data.name;
+    this._link = data.link;
+    this._id = data._id;
 
     this._cardTemplate = document.querySelector(
       this._cardSelector
@@ -25,6 +27,7 @@ export default class Card {
 
   _handleDeleteConfirm(cardElement) {
     cardElement.remove();
+    this._api.deleteCard(this._id);
     this._deleteCardModal.closeModal();
   }
 
@@ -44,8 +47,10 @@ export default class Card {
 
     if (this._cardHeartButton.classList.contains("card__heart-button-active")) {
       this._likes += 1;
+      this._api.addLike(this._id);
     } else {
       this._likes -= 1;
+      this._api.removeLike(this._id);
     }
     this._cardLikes.textContent = this._likes;
   };

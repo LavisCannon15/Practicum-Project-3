@@ -17,6 +17,7 @@ import Api from "../utils/Api";
 
 const api = new Api(apiBaseUrl, apiRequestOptions);
 
+
 const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 cardPreviewPopup.setEventListeners();
 
@@ -35,12 +36,34 @@ function createCard(item, handleCardClick, cardSelector) {
       data: item,
       handleCardClick: handleCardClick,
       deleteCardModal: deleteCardModal,
+      api,
     },
     cardSelector
   );
   return card.getView();
 }
 
+//Retrives and adds cards from the server
+api.getInitialCards().then((initialCardsData) => {
+ 
+  const cardSection = new Section(
+    {
+      items: initialCardsData,
+      renderer: (data) => {
+        const card = createCard(data, cardPreviewPopup, selectors.cardTemplate);
+        cardSection.addItems(card);
+      },
+    },
+    selectors.cardSection
+  );
+
+  cardSection.renderItems();
+  //console.log(initialCardsData);
+});
+
+
+
+/*
 const cardSection = new Section(
   {
     items: initialCards,
@@ -52,7 +75,9 @@ const cardSection = new Section(
   selectors.cardSection
 );
 
+
 cardSection.renderItems();
+*/
 
 /*-------------------------Profile elements------------------------------*/
 
@@ -72,11 +97,26 @@ const userInfo = new UserInfo(selectors.profileName, selectors.profileAbout);
 const profileFormValidator = new FormValidator(settings, modalProfileForm);
 profileFormValidator.enableValidation();
 
+/*
 function fillProfileForm() {
   const { name, description } = userInfo.getProfileInfo();
   modalProfileNameInput.value = name;
   modalProfileDescriptionInput.value = description;
 }
+*/
+
+api.getUserInfo().then((userData) => {
+  //Fills profile form modal from server data
+  modalProfileNameInput.value = userData.name;
+  modalProfileDescriptionInput.value = userData.about;
+
+  //Updates profile picture from  server data
+  profilePicture.src = userData.avatar;
+  profilePicture.alt = userData.name;
+
+  userInfo.setProfileInfo(userData.name, userData.about);
+});
+
 
 const editProfileModal = new PopupWithForm(selectors.profileModal, () => {
   const inputValues = editProfileModal.getInputValues();
@@ -86,13 +126,15 @@ const editProfileModal = new PopupWithForm(selectors.profileModal, () => {
 
   userInfo.setProfileInfo(name, description);
 
+  api.editUserProfile(inputValues); 
+
   editProfileModal.closeModal();
 });
 
 editProfileModal.setEventListeners();
 
 profileEditButton.addEventListener("click", () => {
-  fillProfileForm();
+  //fillProfileForm();
   editProfileModal.openModal();
   profileFormValidator.toggleButtonState();
 });
@@ -109,8 +151,11 @@ const addCardModal = new PopupWithForm(selectors.addCardModal, () => {
   const card = createCard(cardData);
   cardSection.addItems(card);
 
+  api.addNewCard(cardData); 
+
   addCardModal.closeModal();
 });
+
 
 addCardModal.setEventListeners();
 
@@ -139,6 +184,8 @@ const profilePictureModal = new PopupWithForm(
     profilePicture.src = link;
     profilePicture.alt = profileName.textContent;
 
+    api.updateProfilePicture(inputValues);
+
     profilePictureModal.closeModal();
   }
 );
@@ -149,3 +196,6 @@ profilePictureEditButton.addEventListener("click", () => {
   profilePictureModal.openModal();
   profileFormValidator.toggleButtonState();
 });
+
+
+
