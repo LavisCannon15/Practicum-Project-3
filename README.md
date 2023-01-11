@@ -1,11 +1,5 @@
 # Project 3: Around The U.S.
 
-### Overview
-
-- Intro
-- Figma
-- Images
-
 **Intro**
 
 This project is an interative page where users can add and remove photos, like photos of other users, and make changes to their own profile.
