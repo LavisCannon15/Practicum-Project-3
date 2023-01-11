@@ -12,7 +12,7 @@ export default class PopupWithImage extends Popup {
     );
   }
 
-  openModal({ link, name }) {
+  openModal(name, link) {
     this._cardPreviewImage.src = link;
     this._cardPreviewImage.alt = name;
     this._cardPreviewTitle.textContent = name;

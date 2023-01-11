@@ -1,76 +1,60 @@
 export default class Card {
-  constructor({ data, handleCardClick, deleteCardModal, api }, cardSelector) {
+  constructor(
+    { data, handleImageClick, deleteCardModal, handleLike },
+    cardSelector,
+    userId
+  ) {
     this._cardSelector = cardSelector;
-    this._handleCardClick = handleCardClick;
+    this._handleImageClick = handleImageClick;
     this._deleteCardModal = deleteCardModal;
-    this._api = api;
+    this._handleLike = handleLike;
 
+    this._userId = userId;
     this._name = data.name;
     this._link = data.link;
     this._id = data._id;
+    this._likes = data.likes;
+    this._ownerId = data.owner._id;
 
     this._cardTemplate = document.querySelector(
       this._cardSelector
     ).content.firstElementChild;
 
-    this._handleDeleteConfirm = this._handleDeleteConfirm.bind(this);
-
-    this._likes = 0;
-  }
-
-  /*
-  _handleDeleteConfirm() {
-    this._cardElement.remove();
-    this._deleteCardModal.closeModal();
-  }
-  */
-
-  _handleDeleteConfirm(cardElement) {
-    cardElement.remove();
-    this._api.deleteCard(this._id);
-    this._deleteCardModal.closeModal();
+    //this._handleDeleteConfirm = this._handleDeleteConfirm.bind(this);
   }
 
   _setEventListeners() {
     //Like button
-    this._cardHeartButton.addEventListener("click", this._handleHeartIcon);
+    this._cardHeartButton.addEventListener("click", this._handleLike);
 
     //delete button
-    this._cardDeleteButton.addEventListener("click", this._handleDeleteCard);
+    this._cardDeleteButton.addEventListener("click", this._deleteCardModal);
 
     //modal preview
-    this._cardImage.addEventListener("click", this._handlePreviewPicture);
+    this._cardImage.addEventListener("click", this._handleImageClick);
   }
 
-  _handleHeartIcon = () => {
-    this._cardHeartButton.classList.toggle("card__heart-button-active");
+  updateLikes(likes) {
+    this._likes = likes;
+    this._renderLikes();
+  }
 
-    if (this._cardHeartButton.classList.contains("card__heart-button-active")) {
-      this._likes += 1;
-      this._api.addLike(this._id);
+  _renderLikes() {
+    if (this.isLiked()) {
+      this._cardHeartButton.classList.add("card__heart-button-active");
     } else {
-      this._likes -= 1;
-      this._api.removeLike(this._id);
+      this._cardHeartButton.classList.remove("card__heart-button-active");
     }
-    this._cardLikes.textContent = this._likes;
-  };
+    this._cardLikes.textContent = this._likes.length;
+  }
 
-  /*
-  _handleDeleteCard = () => {
-    //this._cardElement.remove();
-    this._deleteCardModal.openModal();
-  };
-  */
+  isLiked() {
+    return this._likes.some((like) => like._id === this._userId);
+  }
 
-  _handleDeleteCard = () => {
-    this._deleteCardModal.openModal();
-    this._deleteCardModal._handleFormSubmit = () => {
-      this._handleDeleteConfirm(this._cardElement);
-    };
-  };
-
-  _handlePreviewPicture = () => {
-    this._handleCardClick.openModal({ link: this._link, name: this._name });
+  handleDeleteCard = () => {
+    this._cardElement.remove();
+    //this._deleteCardModal.openModal();
   };
 
   getView() {
@@ -85,11 +69,22 @@ export default class Card {
     );
     this._cardLikes = this._cardElement.querySelector(".card__likes");
 
+    this._renderLikes();
+
     this._setEventListeners();
 
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name;
+
+    //Using the code below will remove the trash button from cards from the server
+    //Will not remove trash button if user (Me) adds cards
+    if (this._userId != this._ownerId) {
+      this._cardDeleteButton.remove();
+    }
+
+    console.log("UserID: " + this._userId);
+    console.log("OwnerID: " + this._ownerId);
 
     return this._cardElement;
   }

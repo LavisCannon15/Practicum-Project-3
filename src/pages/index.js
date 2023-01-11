@@ -12,72 +12,96 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../utils/Api";
 
 const api = new Api(apiBaseUrl, apiRequestOptions);
 
-
 const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 cardPreviewPopup.setEventListeners();
 
-function createCard(item, handleCardClick, cardSelector) {
-  const deleteCardModal = new PopupWithForm(
-    selectors.confirmationModal,
-    (cardElement) => {
-      cardElement.remove();
-      deleteCardModal.closeModal();
-    }
-  );
-  deleteCardModal.setEventListeners();
+const deleteCardModal = new PopupWithConfirmation(selectors.confirmationModal);
+deleteCardModal.setEventListeners();
 
+const confirmationModalSaveButton = document.querySelector(
+  "#confirmationSaveButton"
+);
+
+
+function createCard(data) {
   const card = new Card(
     {
-      data: item,
-      handleCardClick: handleCardClick,
-      deleteCardModal: deleteCardModal,
-      api,
+      data: data,
+      handleImageClick: () => {
+        cardPreviewPopup.openModal(data.name, data.link);
+      },
+      deleteCardModal: () => {
+        deleteCardModal.openModal(() => {
+          renderSaving(confirmationModalSaveButton, true);
+          api
+            .deleteCard(data._id)
+            .then(() => {
+              deleteCardModal.closeModal();
+              card.handleDeleteCard();
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+            .finally(() => {
+              renderSaving(confirmationModalSaveButton, false);
+            });
+        });
+      },
+      handleLike: () => {
+        if (card.isLiked()) {
+          api
+            .removeLike(card._id)
+            .then((response) => {
+              card.updateLikes(response.likes);
+            })
+            .catch(() => (err) => console.log(err));
+        } else {
+          api
+            .addLike(card._id)
+            .then((response) => {
+              card.updateLikes(response.likes);
+            })
+            .catch(() => (err) => console.log(err));
+        }
+      },
     },
-    cardSelector
+    selectors.cardTemplate,
+    userId
   );
   return card.getView();
 }
 
-//Retrives and adds cards from the server
-api.getInitialCards().then((initialCardsData) => {
- 
-  const cardSection = new Section(
-    {
-      items: initialCardsData,
-      renderer: (data) => {
-        const card = createCard(data, cardPreviewPopup, selectors.cardTemplate);
-        cardSection.addItems(card);
+
+let cardSection;
+let userId;
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, initialCards]) => {
+    userInfo.setProfileInfo(userData.name, userData.about);
+    userInfo.setProfileImage(userData.avatar);
+    userId = userData._id; // set user id
+    cardSection = new Section(
+      {
+        items: initialCards,
+        renderer: (data) => {
+          const card = createCard(data);
+          cardSection.addItems(card); //Keep in mind the card is added to the bottom of the page.
+        },
       },
-    },
-    selectors.cardSection
-  );
+      selectors.cardSection
+    );
 
-  cardSection.renderItems();
-  //console.log(initialCardsData);
-});
-
+    cardSection.renderItems();
+  })
+  .catch((err) => console.log(err));
 
 
-/*
-const cardSection = new Section(
-  {
-    items: initialCards,
-    renderer: (data) => {
-      const card = createCard(data, cardPreviewPopup, selectors.cardTemplate);
-      cardSection.addItems(card);
-    },
-  },
-  selectors.cardSection
-);
-
-
-cardSection.renderItems();
-*/
 
 /*-------------------------Profile elements------------------------------*/
 
@@ -95,44 +119,40 @@ const modalProfileDescriptionInput = document.querySelector(
 
 const modalProfileSaveButton = document.querySelector("#profileSaveButton");
 
-const userInfo = new UserInfo(selectors.profileName, selectors.profileAbout);
+const userInfo = new UserInfo(
+  selectors.profileName,
+  selectors.profileAbout,
+  selectors.profileImage
+);
 const profileFormValidator = new FormValidator(settings, modalProfileForm);
 profileFormValidator.enableValidation();
-
 
 function fillProfileForm() {
   const { name, description } = userInfo.getProfileInfo();
   modalProfileNameInput.value = name;
   modalProfileDescriptionInput.value = description;
+
 }
 
-
-api.getUserInfo().then((userData) => {
-  //Fills profile form modal from server data
-  modalProfileNameInput.value = userData.name;
-  modalProfileDescriptionInput.value = userData.about;
-
-  //Updates profile picture from  server data
-  profilePicture.src = userData.avatar;
-  profilePicture.alt = userData.name;
-
-  //updates profile name and description from server
-  userInfo.setProfileInfo(userData.name, userData.about);
-});
-
+const profileModalSaveButton = document.querySelector("#profileSaveButton");
 
 const editProfileModal = new PopupWithForm(selectors.profileModal, () => {
   const inputValues = editProfileModal.getInputValues();
 
-  const name = inputValues.name;
-  const description = inputValues.description;
+  renderSaving(profileModalSaveButton, true);
+  api
+    .editUserProfile(inputValues)
+    .then(() => {
+      const name = inputValues.name;
+      const description = inputValues.description;
 
-  userInfo.setProfileInfo(name, description);
-
-  modalProfileSaveButton.textContent = "Saving...";
-  api.editUserProfile(inputValues); 
-
-  editProfileModal.closeModal();
+      userInfo.setProfileInfo(name, description);
+      editProfileModal.closeModal();
+    })
+    .catch((err) => console.log(err))
+    .finally(() => {
+      renderSaving(profileModalSaveButton, false);
+    });
 });
 
 editProfileModal.setEventListeners();
@@ -145,21 +165,28 @@ profileEditButton.addEventListener("click", () => {
 
 /*------------------------Modal addCard elements--------------------------*/
 const modalAddForm = document.querySelector("#addCardForm");
+const addModalSaveButton = document.querySelector("#addCreateButton");
 
 const addCardFormValidator = new FormValidator(settings, modalAddForm);
 addCardFormValidator.enableValidation();
 
 const addCardModal = new PopupWithForm(selectors.addCardModal, () => {
-  const cardData = addCardModal.getInputValues();
+  const inputValues = addCardModal.getInputValues();
 
-  const card = createCard(cardData);
-  cardSection.addItems(card);
-
-  api.addNewCard(cardData); 
-
-  addCardModal.closeModal();
+  renderSaving(addModalSaveButton, true);
+  api
+    .addNewCard(inputValues)
+    .then((response) => {
+      const card = createCard(response);
+      cardSection.addItems(card);
+      //api.addNewCard(inputValues);
+      addCardModal.closeModal();
+    })
+    .catch((err) => console.log(err))
+    .finally(() => {
+      renderSaving(addModalSaveButton, false);
+    });
 });
-
 
 addCardModal.setEventListeners();
 
@@ -171,8 +198,7 @@ addButton.addEventListener("click", () => {
 /*------------------------Change profile picture--------------------------*/
 
 const profilePictureForm = document.querySelector("#profilePictureForm");
-const profilePicture = document.querySelector(".profile__image");
-const profileName = document.querySelector(".profile__title");
+const profilePictureSaveButton = document.querySelector("#profilePictureSave");
 
 const profilePictureFormValidator = new FormValidator(
   settings,
@@ -184,22 +210,37 @@ const profilePictureModal = new PopupWithForm(
   selectors.changeProfilePictureModal,
   () => {
     const inputValues = profilePictureModal.getInputValues();
-    const link = inputValues.link;
-    profilePicture.src = link;
-    profilePicture.alt = profileName.textContent;
 
-    api.updateProfilePicture(inputValues);
-
-    profilePictureModal.closeModal();
+    renderSaving(profilePictureSaveButton, true);
+    api
+      .updateProfilePicture(inputValues)
+      .then(() => {
+        const image = inputValues.link;
+        userInfo.setProfileImage(image);
+        profilePictureModal.closeModal();
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        renderSaving(profilePictureSaveButton, false);
+      });
   }
 );
 
 profilePictureModal.setEventListeners();
 
 profilePictureEditButton.addEventListener("click", () => {
+  //fillProfileImage();
   profilePictureModal.openModal();
   profileFormValidator.toggleButtonState();
 });
 
-
-
+let initialText;
+function renderSaving(button, isSaving) {
+  //const initialText = button.textContent;
+  if (isSaving) {
+    initialText = button.textContent;
+    button.textContent = "Saving...";
+  } else {
+    button.textContent = initialText;
+  }
+}
